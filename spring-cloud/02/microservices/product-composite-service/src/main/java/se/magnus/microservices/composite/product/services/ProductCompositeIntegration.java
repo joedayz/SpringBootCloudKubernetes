@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.actuate.health.Health;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
@@ -44,17 +43,11 @@ public class ProductCompositeIntegration implements ProductService, Recommendati
   private final Scheduler publishEventScheduler;
   private final WebClient webClient;
   private final ObjectMapper mapper;
-
-
-
   private final StreamBridge streamBridge;
-
-
 
   @Autowired
   public ProductCompositeIntegration(
     @Qualifier("publishEventScheduler") Scheduler publishEventScheduler,
-
     WebClient.Builder webClientBuilder,
     ObjectMapper mapper,
     StreamBridge streamBridge
@@ -64,8 +57,6 @@ public class ProductCompositeIntegration implements ProductService, Recommendati
     this.publishEventScheduler = publishEventScheduler;
     this.mapper = mapper;
     this.streamBridge = streamBridge;
-
-
   }
 
   @Override
@@ -144,27 +135,6 @@ public class ProductCompositeIntegration implements ProductService, Recommendati
 
     return Mono.fromRunnable(() -> sendMessage("reviews-out-0", new Event(DELETE, productId, null)))
       .subscribeOn(publishEventScheduler).then();
-  }
-
-  public Mono<Health> getProductHealth() {
-    return getHealth(PRODUCT_SERVICE_URL);
-  }
-
-  public Mono<Health> getRecommendationHealth() {
-    return getHealth(RECOMMENDATION_SERVICE_URL);
-  }
-
-  public Mono<Health> getReviewHealth() {
-    return getHealth(REVIEW_SERVICE_URL);
-  }
-
-  private Mono<Health> getHealth(String url) {
-    url += "/actuator/health";
-    LOG.debug("Will call the Health API on URL: {}", url);
-    return webClient.get().uri(url).retrieve().bodyToMono(String.class)
-      .map(s -> new Health.Builder().up().build())
-      .onErrorResume(ex -> Mono.just(new Health.Builder().down(ex).build()))
-      .log(LOG.getName(), FINE);
   }
 
   private void sendMessage(String bindingName, Event event) {

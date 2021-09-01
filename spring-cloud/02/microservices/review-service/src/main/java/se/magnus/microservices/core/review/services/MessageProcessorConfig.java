@@ -1,7 +1,6 @@
 package se.magnus.microservices.core.review.services;
 
 import java.util.function.Consumer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +14,19 @@ import se.magnus.api.exceptions.EventProcessingException;
 @Configuration
 public class MessageProcessorConfig {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MessageProcessorConfig.class);
+  private static final Logger LOG = LoggerFactory.getLogger(MessageProcessorConfig.class);
 
-    private final ReviewService reviewService;
+  private final ReviewService reviewService;
 
-    @Autowired
-    public MessageProcessorConfig(ReviewService reviewService) {
-        this.reviewService = reviewService;
-    }
+  @Autowired
+  public MessageProcessorConfig(ReviewService reviewService) {
+    this.reviewService = reviewService;
+  }
 
-    @Bean
-    public Consumer<Event<Integer, Review>> messageProcessor() {
-      return event -> {
-        LOG.info("Process message created at {}...", event.getEventCreatedAt());
+  @Bean
+  public Consumer<Event<Integer, Review>> messageProcessor() {
+    return event -> {
+      LOG.info("Process message created at {}...", event.getEventCreatedAt());
 
       switch (event.getEventType()) {
 

@@ -5,6 +5,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,17 @@ class EurekaServerApplicationTests {
   void contextLoads() {
   }
 
+  @Value("${app.eureka-username}")
+  private String username;
+
+  @Value("${app.eureka-password}")
+  private String password;
+
   @Autowired
+  void setTestRestTemplate(TestRestTemplate testRestTemplate) {
+    this.testRestTemplate = testRestTemplate.withBasicAuth(username, password);
+  }
+
   private TestRestTemplate testRestTemplate;
 
   @Test

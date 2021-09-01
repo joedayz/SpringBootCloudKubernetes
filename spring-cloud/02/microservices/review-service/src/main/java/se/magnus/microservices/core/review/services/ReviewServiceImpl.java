@@ -46,10 +46,8 @@ public class ReviewServiceImpl implements ReviewService {
     if (body.getProductId() < 1) {
       throw new InvalidInputException("Invalid productId: " + body.getProductId());
     }
-
     return Mono.fromCallable(() -> internalCreateReview(body))
-            .subscribeOn(jdbcScheduler);
-
+      .subscribeOn(jdbcScheduler);
   }
 
   private Review internalCreateReview(Review body) {
@@ -104,6 +102,7 @@ public class ReviewServiceImpl implements ReviewService {
   private void internalDeleteReviews(int productId) {
 
     LOG.debug("deleteReviews: tries to delete reviews for the product with productId: {}", productId);
+
     repository.deleteAll(repository.findByProductId(productId));
   }
 }

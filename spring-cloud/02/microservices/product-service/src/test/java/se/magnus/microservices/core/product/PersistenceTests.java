@@ -107,10 +107,10 @@ class PersistenceTests extends MongoDbTestBase {
 
   private boolean areProductEqual(ProductEntity expectedEntity, ProductEntity actualEntity) {
     return
-            (expectedEntity.getId().equals(actualEntity.getId()))
-                    && (expectedEntity.getVersion() == actualEntity.getVersion())
-                    && (expectedEntity.getProductId() == actualEntity.getProductId())
-                    && (expectedEntity.getName().equals(actualEntity.getName()))
-                    && (expectedEntity.getWeight() == actualEntity.getWeight());
+      (expectedEntity.getId().equals(actualEntity.getId()))
+      && (expectedEntity.getVersion() == actualEntity.getVersion())
+      && (expectedEntity.getProductId() == actualEntity.getProductId())
+      && (expectedEntity.getName().equals(actualEntity.getName()))
+      && (expectedEntity.getWeight() == actualEntity.getWeight());
   }
 }

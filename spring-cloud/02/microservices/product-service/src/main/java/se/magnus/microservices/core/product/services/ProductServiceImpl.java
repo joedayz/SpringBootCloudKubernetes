@@ -19,9 +19,9 @@ import se.magnus.util.http.ServiceUtil;
 @RestController
 public class ProductServiceImpl implements ProductService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ProductServiceImpl.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ProductServiceImpl.class);
 
-    private final ServiceUtil serviceUtil;
+  private final ServiceUtil serviceUtil;
 
   private final ProductRepository repository;
 
