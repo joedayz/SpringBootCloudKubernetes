@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+TENANT=dev-imn0x68y.us.auth0.com
+MGM_CLIENT_ID=gdYf5X68GutnKEOSVDmSPbD3wDhj70dl
+MGM_CLIENT_SECRET=J9o83S74HU8m_txjPWhkg9TklRme782IN_1WfHWWWPxgdTfTWxcu_bVBjl7DbZjn
+USER_EMAIL=jamdiazdiaz@gmail.com
+USER_PASSWORD=deborah15
